@@ -20,7 +20,7 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.player = Player(self.screen, 100, 400, "Assets/Ninja", 1 / 4, 0.5, 10, 50)
+        self.player = Player(self.screen, 100, 350, "Assets/Ninja", 1 / 4, 0.5, 10, 50)
 
     def run(self):
         while self.running:
@@ -46,6 +46,10 @@ class GameManager:
 
     def update(self):
         self.level_manager.load_level(1)
+
+        tile_map = self.level_manager.current_level.get_tile_map()
+
+        self.player.update(tile_map)
 
     def draw(self):
         self.level_manager.draw(self.screen)

@@ -9,6 +9,11 @@ class GameObject(ABC):
         self.screen = screen
         self.x = x
         self.y = y
+
+        self.can_move_right = True
+        self.can_move_left = True
+        self.velocity_x = 0
+
         self.looking = 1
 
         self.sprite_manager = SpriteManager(object_path)
@@ -23,11 +28,21 @@ class GameObject(ABC):
 
     def move(self, direction):
         self.direction = direction
-        self.x += self.direction[0] * self.move_speed
+
+        if self.can_move_right and self.looking == 1:
+            self.velocity_x = self.direction[0] * self.move_speed
+            self.x += self.velocity_x
+
+        if self.can_move_left and self.looking == -1:
+            self.velocity_x = self.direction[0] * self.move_speed
+            self.x += self.velocity_x
 
     @abstractmethod
     def get_state(self):
         pass
+
+    def update(self, tile_map):
+        self.physics_manager.detect_collisions(self, tile_map)
 
     def draw(self):
         state = self.get_state()

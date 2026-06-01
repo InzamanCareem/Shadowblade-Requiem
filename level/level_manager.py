@@ -35,7 +35,10 @@ class Level1:
 
         self.tile_set_dict = self.tiles.load_tile_set()
 
+    def get_tile_map(self):
+        return self.tile_map
+
     def draw(self, screen):
         self.background.draw(screen)
 
-        self.tiles.draw(screen, self.tile_set_dict, self.tile_map)
+        self.tiles.draw(screen, self.tile_set_dict, self.get_tile_map())

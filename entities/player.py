@@ -6,14 +6,21 @@ from typing import override
 class Player(GameObject):
     def __init__(self, screen, x, y, object_path, object_scale, frame_rate, move_speed, jump_speed):
         super().__init__(screen, x, y, object_path, object_scale, frame_rate, move_speed)
-        self.on_ground = True
+        self.on_ground = False
         self.velocity_y = 0
         self.jump_speed = -jump_speed
 
     @override
     def move(self, direction):
         self.direction = direction
-        self.x += self.direction[0] * self.move_speed
+
+        if self.can_move_right and self.looking == 1:
+            self.velocity_x = self.direction[0] * self.move_speed
+            self.x += self.velocity_x
+
+        if self.can_move_left and self.looking == -1:
+            self.velocity_x = self.direction[0] * self.move_speed
+            self.x += self.velocity_x
 
         if direction == (0, -1) and self.on_ground:
             self.velocity_y = self.jump_speed
