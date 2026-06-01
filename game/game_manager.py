@@ -20,7 +20,7 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.player = Player(self.screen, 100, 500, "Assets/Ninja", 1 / 4, 0.5, 10)
+        self.player = Player(self.screen, 100, 400, "Assets/Ninja", 1 / 4, 0.5, 10, 50)
 
     def run(self):
         while self.running:
