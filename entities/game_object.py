@@ -1,62 +1,33 @@
 from systems.sprite_manager import SpriteManager
 from systems.physics_manager import PhysicsManager
 
+from abc import ABC, abstractmethod
 
-class GameObject:
-    def __init__(self, screen, x, y, object_path, object_scale, frame_rate, move_speed, jump_speed):
+
+class GameObject(ABC):
+    def __init__(self, screen, x, y, object_path, object_scale, frame_rate, move_speed):
         self.screen = screen
         self.x = x
         self.y = y
-        self.on_ground = True
-        self.velocity_y = 0
         self.looking = 1
 
         self.sprite_manager = SpriteManager(object_path)
-
         self.object_dict = self.sprite_manager.load_sprites(object_scale)
 
         self.object_frame = 0
         self.frame_rate = frame_rate
-
         self.move_speed = move_speed
 
         self.direction = (0, 0)
-
         self.physics_manager = PhysicsManager()
-
-        self.jump_speed = -jump_speed
 
     def move(self, direction):
         self.direction = direction
         self.x += self.direction[0] * self.move_speed
 
-        if direction == (0, -1) and self.on_ground:
-            self.velocity_y = self.jump_speed
-            self.on_ground = False
-
-        if not self.on_ground:
-            self.velocity_y = self.physics_manager.apply_gravity(self.velocity_y, self.frame_rate)
-            self.y += self.velocity_y
-
-        # Ground collision
-        if self.y >= 400:
-            self.y = 400
-            self.velocity_y = 0
-            self.on_ground = True
-
+    @abstractmethod
     def get_state(self):
-        if self.direction == (0, 0):
-            return "idle-right"
-        elif self.direction == (1, 0):
-            self.looking = 1
-            return "run-right"
-        elif self.direction == (-1, 0):
-            self.looking = -1
-            return "run-left"
-        elif self.direction == (0, -1):
-            return "jump-right"
-        else:
-            return "attack-right"
+        pass
 
     def draw(self):
         state = self.get_state()
