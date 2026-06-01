@@ -1,4 +1,5 @@
 from level.background import Background
+from level.tile import Tile
 
 
 class LevelManager:
@@ -17,5 +18,24 @@ class Level1:
     def __init__(self):
         self.background = Background(background_path="Assets/Tileset/background.png", position=(0, 0), size=(1024, 640))
 
+        self.tile_map = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 14, 15, 16, 0, 0, 0, 0, 0, 0, 0],
+            [15, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 15, 15, 16, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+        ]
+
+        self.tiles = Tile(tile_set_path="Assets/Tileset/Tiles", size=(64, 64))
+
+        self.tile_set_dict = self.tiles.load_tile_set()
+
     def draw(self, screen):
         self.background.draw(screen)
+
+        self.tiles.draw(screen, self.tile_set_dict, self.tile_map)
