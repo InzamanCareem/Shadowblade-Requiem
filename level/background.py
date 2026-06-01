@@ -1,4 +1,4 @@
-from utils.image_loader import load_image
+from utils.image_manager import load_image
 
 
 class Background:
