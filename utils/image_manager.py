@@ -19,3 +19,7 @@ def load_image(path: str, size_or_scale):
         return pygame.transform.scale(image, size_or_scale)
     else:
         return pygame.transform.rotozoom(image, 0, size_or_scale)
+
+
+def transform_image(image: pygame.Surface) -> pygame.Surface:
+    return pygame.transform.flip(image, 1, 0)
