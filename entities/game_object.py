@@ -6,7 +6,6 @@ class GameObject:
         self.screen = screen
         self.x = x
         self.y = y
-        self.can_move = (0, 0)
         self.is_falling = False
 
         self.sprite_manager = SpriteManager(object_path)
@@ -16,8 +15,9 @@ class GameObject:
         self.object_frame = 0
         self.frame_rate = frame_rate
 
-    def move(self, keys):
-        pass
+    def move(self, direction):
+        self.x += direction[0] * 10
+        self.y += direction[1] * 10
 
     def draw(self, state):
         images = self.object_dict.get(state)

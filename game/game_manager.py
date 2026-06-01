@@ -20,7 +20,7 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.player = Player(self.screen, 100, 100, "Assets/Ninja", 1 / 4, 0.5)
+        self.player = Player(self.screen, 100, 500, "Assets/Ninja", 1 / 4, 0.5)
 
     def run(self):
         while self.running:
@@ -35,6 +35,11 @@ class GameManager:
         events = pygame.event.get()
 
         event_success = self.input_manager.update(events)
+
+        keys = pygame.key.get_pressed()
+
+        direction = self.input_manager.get_pressed_keys(keys)
+        self.player.move(direction)
 
         if event_success == -1:
             self.running = False
